@@ -1,0 +1,40 @@
+on: 
+  push:
+    branch: ["dev"]
+
+#constuire l'image docker, execution des tests unitaires, etape de developpement vers un environnement de staging, etape de deploiement vers un environnement de production 
+stages: 
+  -build
+  -test
+  -deploy
+
+docker-build:
+  stage: build
+  script:
+    - docker build -t......
+    - echo "Docker image built successfully"
+
+  stage: test
+  script:
+    - docker run --rm
+    - echo "Unit tests done"
+
+  stage: deploy-staging
+  script:
+    - docker run -d --name....
+    - echo "Deployed to staging with success"
+  environment:
+    name: staging
+    url: 
+
+  stage: deploy-production
+  script:
+    - echo "Deploying SmartSync to production.."
+    - docker run -d --name.....
+    - echo "Deployed to production successfully"
+  environment: 
+    name: production
+    url: https://www.smartsync.com
+  only:
+    - main  # Déployer sur production uniquement pour la branche 'main'
+  when: manual  # Déploiement manuel (demande une approbation)
