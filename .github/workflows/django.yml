@@ -28,3 +28,33 @@ jobs:
     - name: Run Tests
       run: |
         python manage.py test
+    - name: Upload test results to GitHub (optional)
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-results
+        path: /path/to/test/results  # Path to store test results if needed for reporting
+  
+ # Job for deployment (only if tests pass)
+  deploy:
+    runs-on: ubuntu-latest  # Runs on the same environment
+
+    needs: test  # Ensure this only runs after tests pass
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2  # Checkout code again for deployment step
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt  # Install dependencies
+
+      - name: Deploy to server (example with Heroku or Docker)
+        run: |
+          # Example: Deploy to Heroku
+          git remote add heroku https://git.heroku.com/your-app.git
+          git push heroku main  # Push to Heroku for deployment
