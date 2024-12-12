@@ -1,15 +1,15 @@
-name: Django App CI/CD Pipeline with Docker
+name: Smartsync CI/CD Pipeline 
 
 on:
   push:
     branches:
-      - main
+      - dev
   pull_request:
     branches:
-      - main
+      - dev
 
 jobs:
-  build-and-deploy:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       # Step 1: Checkout the code from the repository
@@ -52,17 +52,21 @@ jobs:
 
       # Step 8: Push the Docker image to Docker Hub (Optional step)
       - name: Push Docker image
-        run: |
+        run: 
+          echo "Pushing the Docker image...."
           docker push your-image-name
-
+          echo "Push successfully done"
+  Deploy:
       # Step 9: Deploy (You can use any deployment method)
       # Example: Deploy to AWS Elastic Beanstalk (adjust as per your deployment method)
       - name: Deploy to AWS Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v20
         with:
-          region: 'us-east-1' # Specify your region
-          application_name: 'your-application-name'
-          environment_name: 'your-environment-name'
+          region: 'cameroon-Douala GMT+1' # Specify your region
+          application_name: 'Smartsync' 
+          environment_name: 'dev'
+            url: https//www.Smartsync.com 
+
           version_label: 'v${{ github.sha }}'
           bucket_name: 'your-s3-bucket-name'
 
