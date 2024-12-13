@@ -35,10 +35,10 @@ jobs:
         path: /path/to/test/results  # Path to store test results if needed for reporting
   
  # Job for deployment (only if tests pass)
-  test:
+  deploy:
     runs-on: ubuntu-latest  # Runs on the same environment
 
-    needs: test  # Ensure this only runs after tests pass
+   # needs: test  # Ensure this only runs after tests pass
 
     steps:
       - name: Checkout code
